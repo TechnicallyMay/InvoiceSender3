@@ -4,11 +4,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace InvoiceSender3.Components.Account
 {
-    // Remove the "else if (EmailSender is IdentityNoOpEmailSender)" block from RegisterConfirmation.razor after updating with a real implementation.
-    internal sealed class IdentityNoOpEmailSender : IEmailSender<ApplicationUser>
+    internal sealed class IdentityEmailSender(IEmailSender emailSender) : IEmailSender<ApplicationUser>
     {
-        private readonly IEmailSender emailSender = new NoOpEmailSender();
-
         public Task SendConfirmationLinkAsync(ApplicationUser user, string email, string confirmationLink) =>
             emailSender.SendEmailAsync(email, "Confirm your email", $"Please confirm your account by <a href='{confirmationLink}'>clicking here</a>.");
 
